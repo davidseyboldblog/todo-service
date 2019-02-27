@@ -15,7 +15,7 @@ RUN go mod download
 ADD . /build/
 
 # Build the binary.
-RUN CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o main .
+RUN CGO_ENABLED=1 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o main /build/cmd/todoservice
 
 # Step 2 package the binary in a minimal container
 FROM alpine
