@@ -22,7 +22,6 @@ before_script:
 script:
   - go test -v -race ./...
   - docker build --pull --cache-from davidseyboldblog/todo-service --tag davidseyboldblog/todo-service .
-  - docker run davidseyboldblog/todo-service
   
 before_deploy:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
