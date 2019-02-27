@@ -1,5 +1,5 @@
 # todo-service
-
+[![Build Status](https://travis-ci.org/davidseyboldblog/todo-service.svg?branch=master)](https://travis-ci.org/davidseyboldblog/todo-service)
 ```
 Request:
 POST /todo-service/todo
