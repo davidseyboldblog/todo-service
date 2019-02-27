@@ -2,6 +2,9 @@ sudo: false
 
 language: go
 
+services:
+  - docker
+
 go:
 - 1.11.x
 
@@ -15,8 +18,16 @@ notifications:
   email: false
 
 before_script:
-  - go install -mod vendor github.com/golangci/golangci-lint/cmd/golangci-lint
-
+  - docker pull davidseyboldblog/todo-service || true
 script:
-  - golangci-lint run       # run a bunch of code checkers/linters in parallel
-  - go test -v -race ./...  # Run all the tests with the race detector enabled
+  - go test -v -race ./...
+  - docker build --pull --cache-from davidseyboldblog/todo-service --tag davidseyboldblog/todo-service .
+  - docker run myorg/myimage
+  
+before_deploy:
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+deploy:
+  provider: script
+  script: docker push davidseyboldblog/todo-service
+  on:
+    branch: master
