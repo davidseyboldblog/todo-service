@@ -1,6 +1,10 @@
 package adding
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 type mockRepository struct {
 	id  int64
@@ -27,8 +31,5 @@ func TestAddTodo(t *testing.T) {
 	})
 
 	actualTodoID, _ := service.AddTodo(todo)
-	if actualTodoID.ID != 1 {
-		t.Fatalf("Expected ID to equal: %v but was: %v", 1, actualTodoID.ID)
-	}
-
+	assert.Equal(t, int64(1), actualTodoID.ID)
 }

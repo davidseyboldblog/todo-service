@@ -1,6 +1,10 @@
 package listing
 
-import "testing"
+import (
+	"testing"
+
+	"github.com/stretchr/testify/assert"
+)
 
 type mockRepository struct {
 	todo     Todo
@@ -39,15 +43,10 @@ func TestGetTodo(t *testing.T) {
 
 	actualTodo, _ := service.GetTodo("1")
 
-	if actualTodo.ID != todo.ID {
-		t.Fatalf("Expected ID to equal: %v but was: %v", todo.ID, actualTodo.ID)
-	} else if actualTodo.UserID != todo.UserID {
-		t.Fatalf("Expected UserID to equal: %v but was: %v", todo.UserID, actualTodo.UserID)
-	} else if actualTodo.Description != todo.Description {
-		t.Fatalf("Expected Description to equal: %v but was: %v", todo.Description, actualTodo.Description)
-	} else if actualTodo.Complete != todo.Complete {
-		t.Fatalf("Expected Complete to equal: %v but was: %v", todo.Complete, actualTodo.Complete)
-	}
+	assert.Equal(t, todo.ID, actualTodo.ID)
+	assert.Equal(t, todo.UserID, actualTodo.UserID)
+	assert.Equal(t, todo.Description, actualTodo.Description)
+	assert.Equal(t, todo.Complete, actualTodo.Complete)
 }
 
 func TestGetTodoList(t *testing.T) {
@@ -66,19 +65,12 @@ func TestGetTodoList(t *testing.T) {
 
 	actualTodoList, _ := service.GetTodoList("1")
 
-	if len(actualTodoList.Todos) != 1 {
-		t.Fatalf("Expected Len to equal: %v but was: %v", 1, len(actualTodoList.Todos))
-	}
+	assert.Equal(t, 1, len(actualTodoList.Todos))
 
 	actualTodo := actualTodoList.Todos[0]
 
-	if actualTodo.ID != todo.ID {
-		t.Fatalf("Expected ID to equal: %v but was: %v", todo.ID, actualTodo.ID)
-	} else if actualTodo.UserID != todo.UserID {
-		t.Fatalf("Expected UserID to equal: %v but was: %v", todo.UserID, actualTodo.UserID)
-	} else if actualTodo.Description != todo.Description {
-		t.Fatalf("Expected Description to equal: %v but was: %v", todo.Description, actualTodo.Description)
-	} else if actualTodo.Complete != todo.Complete {
-		t.Fatalf("Expected Complete to equal: %v but was: %v", todo.Complete, actualTodo.Complete)
-	}
+	assert.Equal(t, todo.ID, actualTodo.ID)
+	assert.Equal(t, todo.UserID, actualTodo.UserID)
+	assert.Equal(t, todo.Description, actualTodo.Description)
+	assert.Equal(t, todo.Complete, actualTodo.Complete)
 }
